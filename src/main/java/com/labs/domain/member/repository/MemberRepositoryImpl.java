@@ -3,11 +3,13 @@ package com.labs.domain.member.repository;
 import com.labs.domain.member.dto.MemberSearchCondition;
 import com.labs.domain.member.dto.MemberTeamDto;
 import com.labs.domain.member.dto.QMemberTeamDto;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 import static com.labs.domain.member.domain.QMember.member;
 import static com.labs.domain.team.domain.QTeam.team;
@@ -33,17 +35,25 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 .fetch();
     }
 
-    public BooleanExpression searchConditionEquals(MemberSearchCondition condition) {
+    public BooleanBuilder searchConditionEquals(MemberSearchCondition condition) {
         return usernameEquals(condition.getUsername())
                 .and(teamNameEquals(condition.getTeamName()));
     }
 
-    public BooleanExpression usernameEquals(String username) {
-        return username != null ? member.username.eq(username) : null;
+    public BooleanBuilder usernameEquals(String username) {
+        return nullSafeBooleanBuilder(() -> member.username.eq(username));
     }
 
-    public BooleanExpression teamNameEquals(String teamName) {
-        return teamName != null ? team.name.eq(teamName) : null;
+    public BooleanBuilder teamNameEquals(String teamName) {
+        return nullSafeBooleanBuilder(() -> team.name.eq(teamName));
+    }
+
+    private BooleanBuilder nullSafeBooleanBuilder(Supplier<BooleanExpression> supplier) {
+        try {
+            return new BooleanBuilder(supplier.get());
+        } catch (IllegalArgumentException e) {
+            return new BooleanBuilder();
+        }
     }
 
 }
