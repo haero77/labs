@@ -28,10 +28,18 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
                 .from(member)
                 .leftJoin(member.team, team)
                 .where(
-                        member.username.eq(condition.getUsername()),
-                        team.name.eq(condition.getTeamName())
+                        usernameEquals(condition.getUsername()),
+                        teamNameEquals(condition.getTeamName())
                 )
                 .fetch();
+    }
+
+    public BooleanExpression usernameEquals(String username) {
+        return username != null ? member.username.eq(username) : null;
+    }
+
+    public BooleanExpression teamNameEquals(String teamName) {
+        return teamName != null ? team.name.eq(teamName) : null;
     }
 
 }
