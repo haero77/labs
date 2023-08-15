@@ -1,1 +1,28 @@
+spring:
+  profiles:
+    active: local
 
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/database/labs
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        #        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
