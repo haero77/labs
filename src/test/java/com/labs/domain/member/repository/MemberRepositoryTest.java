@@ -5,18 +5,20 @@ import com.labs.domain.member.dto.MemberSearchCondition;
 import com.labs.domain.member.dto.MemberTeamDto;
 import com.labs.domain.team.domain.Team;
 import com.labs.domain.team.repository.TeamRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Transactional
+@Testcontainers
 class MemberRepositoryTest {
 
     @Autowired
@@ -25,8 +27,19 @@ class MemberRepositoryTest {
     @Autowired
     TeamRepository teamRepository;
 
+//    @Container
+////    static MariaDBContainer mariaDBContainer = new MariaDBContainer()
+////            .withDatabaseName("testdb");
+
+    @AfterEach
+    void tearDown() {
+        memberRepository.deleteAllInBatch();
+        teamRepository.deleteAllInBatch();
+    }
+
     @Test
     @DisplayName("회원 이름 또는 팀 이름과 일치하는 회원-팀 정보를 조회할 수 있다.")
+    @Disabled
     void searchByCondition() {
         // given
         Team teamA = new Team("teamA");

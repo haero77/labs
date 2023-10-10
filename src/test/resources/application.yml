@@ -2,21 +2,18 @@ spring:
   profiles:
     active: test
 
-  # datasource 없으면 in memory db 사용
-#  datasource:
-#    url: jdbc:h2:tcp://localhost/~/database/labs
-#    username: sa
-#    password:
-#    driver-class-name: org.h2.Driver
+  datasource:
+    url: jdbc:tc:mariadb:///testdb
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         #        show_sql: true
         format_sql: true
         use_sql_comments: true
+        dialect: org.hibernate.dialect.MariaDBDialect
 
   output:
     ansi:

@@ -51,6 +51,10 @@ dependencies {
 	// mariadb
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
+	/* Testcontainers */
+	testImplementation "org.testcontainers:junit-jupiter:1.17.6"
+	testImplementation "org.testcontainers:mariadb:1.17.6" // MariaDB Module
+
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
