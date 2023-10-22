@@ -1,0 +1,7 @@
+### boolean 타입을 잘 인식할 것인가?
+POST http://localhost:8080/api/members
+Content-Type: application/json
+
+{
+  "username": "user1"
+}

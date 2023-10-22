@@ -3,12 +3,14 @@ package com.labs.domain.member.domain;
 import com.labs.domain.team.domain.Team;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Member {
 
     @Id
@@ -23,8 +25,9 @@ public class Member {
     private Team team;
 
     @Builder
-    protected Member(String username) {
+    protected Member(String username, Team team) {
         this.username = username;
+        this.team = team;
     }
 
     public static Member from(String username) {
