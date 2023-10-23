@@ -30,9 +30,10 @@ public class Member {
         this.team = team;
     }
 
-    public static Member from(String username) {
+    public static Member of(String username, Team team) {
         return Member.builder()
                 .username(username)
+                .team(team)
                 .build();
     }
 
