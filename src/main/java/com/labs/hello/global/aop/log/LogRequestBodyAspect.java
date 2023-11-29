@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -20,8 +21,12 @@ public class LogRequestBodyAspect {
         this.objectMapper = objectMapper;
     }
 
-    @Before("@annotation(com.labs.hello.global.aop.log.LogRequestBody) "
-            + "&& args(.., @org.springframework.web.bind.annotation.RequestBody bodyParam)")
+    @Pointcut("@within(com.labs.hello.global.aop.log.LogRequestBody) || "
+            + "@annotation(com.labs.hello.global.aop.log.LogRequestBody)) ")
+    public void hasLogRequestBodyAnnotation() {
+    }
+
+    @Before("hasLogRequestBodyAnnotation() && args(.., @org.springframework.web.bind.annotation.RequestBody bodyParam)")
     public void doLogRequestBody(JoinPoint joinPoint, Object bodyParam) throws JsonProcessingException {
         log.info("[doLogRequestBody] {}" + System.lineSeparator() + "{}",
                 joinPoint.getSignature(),
