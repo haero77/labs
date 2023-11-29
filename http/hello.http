@@ -1,0 +1,14 @@
+GET http://localhost:8081/api/hello/requestParam
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+###
+GET http://localhost:8081/api/hello/mapBody
+Content-Type: application/json
+
+{
+  "abc": 123
+}
