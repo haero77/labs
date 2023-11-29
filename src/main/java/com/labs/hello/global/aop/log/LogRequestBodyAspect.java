@@ -20,7 +20,8 @@ public class LogRequestBodyAspect {
         this.objectMapper = objectMapper;
     }
 
-    @Before("@annotation(com.labs.hello.global.aop.log.LogRequestBody) && args(.., @RequestBody bodyParam)")
+    @Before("@annotation(com.labs.hello.global.aop.log.LogRequestBody) "
+            + "&& args(.., @org.springframework.web.bind.annotation.RequestBody bodyParam)")
     public void doLogRequestBody(JoinPoint joinPoint, Object bodyParam) throws JsonProcessingException {
         log.info("[doLogRequestBody] {}" + System.lineSeparator() + "{}",
                 joinPoint.getSignature(),

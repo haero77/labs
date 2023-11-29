@@ -27,7 +27,7 @@ class HelloApiTest {
         // given
 
         // expected
-        mockMvc.perform(get("/api/hello/requestParam")
+        mockMvc.perform(get("/api/hello/requestBody")
                         .param("param1", "value")
                 )
                 .andExpect(status().isOk())
