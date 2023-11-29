@@ -1,4 +1,4 @@
-GET http://localhost:8081/api/hello/requestParam
+GET http://localhost:8081/api/hello/requestBody
 Content-Type: application/json
 
 {
