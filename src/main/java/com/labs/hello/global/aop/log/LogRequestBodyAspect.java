@@ -23,10 +23,10 @@ public class LogRequestBodyAspect {
 
     @Pointcut("@within(com.labs.hello.global.aop.log.LogRequestBody) || "
             + "@annotation(com.labs.hello.global.aop.log.LogRequestBody)) ")
-    public void hasLogRequestBodyAnnotation() {
+    public void hasLogRequestBody() {
     }
 
-    @Before("hasLogRequestBodyAnnotation() && args(.., @org.springframework.web.bind.annotation.RequestBody bodyParam)")
+    @Before("hasLogRequestBody() && args(.., @org.springframework.web.bind.annotation.RequestBody bodyParam)")
     public void doLogRequestBody(JoinPoint joinPoint, Object bodyParam) throws JsonProcessingException {
         log.info("[doLogRequestBody] {}" + System.lineSeparator() + "{}",
                 joinPoint.getSignature(),

@@ -1,6 +1,7 @@
 package com.labs.hello.domain.hello.api;
 
 
+import com.labs.hello.global.aop.log.LogRequestBody;
 import com.labs.hello.global.aop.log.LogResponseBody;
 import java.util.Map;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+@LogRequestBody
 @LogResponseBody
 @RestController
 public class HelloApi {
