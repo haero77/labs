@@ -22,7 +22,7 @@ public class LogRequestBodyAspect {
     }
 
     @Pointcut("@within(com.labs.hello.global.aop.log.LogRequestBody) || "
-            + "@annotation(com.labs.hello.global.aop.log.LogRequestBody)) ")
+            + "@annotation(com.labs.hello.global.aop.log.LogRequestBody)")
     public void hasLogRequestBody() {
     }
 
