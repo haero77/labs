@@ -14,7 +14,7 @@ public class JsonPrettyFormatter {
         try {
             return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(source);
         } catch (JsonProcessingException e) {
-            log.info("Error occurred while convert {}", source.toString());
+            log.info("Error occurred while converting {}", source.toString());
             throw e;
         }
     }
