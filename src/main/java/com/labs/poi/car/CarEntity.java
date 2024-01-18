@@ -22,6 +22,9 @@ public class CarEntity {
 	@Column(name = "car_id")
 	private Long id;
 
+
+	private CarType carType;
+
 	private String company; // 회사
 
 	private String name; // 차종
@@ -31,7 +34,8 @@ public class CarEntity {
 	private double rating; // 평점
 
 	@Builder
-	private CarEntity(String company, String name, int price, double rating) {
+	private CarEntity(CarType carType, String company, String name, int price, double rating) {
+		this.carType = carType;
 		this.company = company;
 		this.name = name;
 		this.price = price;

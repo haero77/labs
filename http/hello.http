@@ -1,12 +1,12 @@
-GET http://localhost:8081/api/hello/requestBody
+GET http://localhost:8081/api/hello/requestDto
 Content-Type: application/json
 
 {
   "id": 1
-}
+ }
 
 ###
-GET http://localhost:8081/api/hello/mapBody
+GET http://localhost:8081/api/hello/map
 Content-Type: application/json
 
 {

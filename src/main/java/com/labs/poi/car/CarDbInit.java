@@ -15,6 +15,7 @@ public class CarDbInit {
 		for (int i = 1; i <= 30; i++) {
 			CarEntity newCarEntity = CarEntity.builder()
 					.company("company" + i)
+					.carType(i % 2 == 0 ? CarType.SMALL : CarType.BIG)
 					.name("name" + i)
 					.price(i * 1000)
 					.rating(i * 10)
