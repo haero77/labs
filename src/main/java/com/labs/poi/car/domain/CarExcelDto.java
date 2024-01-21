@@ -1,14 +1,17 @@
 package com.labs.poi.car.domain;
 
 
+import com.labs.poi.car.excel.ExcelCellStyle;
 import com.labs.poi.car.excel.ExcelColumn;
+import com.labs.poi.car.excel.style.align.ExcelTextAlign;
+import com.labs.poi.car.excel.style.color.RgbColor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 public class CarExcelDto {
 
-	@ExcelColumn(headerName = "회사")
+	@ExcelColumn(headerName = "회사", headerStyle = @ExcelCellStyle)
 	private final String company; // 회사
 
 	@ExcelColumn(headerName = "차종")
@@ -20,7 +23,7 @@ public class CarExcelDto {
 	@ExcelColumn(headerName = "가격")
 	private final int price; // 가격
 
-	@ExcelColumn(headerName = "평점")
+	@ExcelColumn(headerName = "평점", headerStyle = @ExcelCellStyle(foreGroundColor = RgbColor.GREY, align = ExcelTextAlign.CENTER))
 	private final double rating; // 평점
 
 	@Builder

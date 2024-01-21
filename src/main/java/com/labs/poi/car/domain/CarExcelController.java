@@ -98,7 +98,7 @@ public class CarExcelController {
 		List<CarExcelDto> carExcelDtos = carService.fetchAllAsExcelDto();
 
 		// 셀 스타일
-		CellStyle greyCellStyle = workbook.createCellStyle();
+		CellStyle greyCellStyle = workbook.createCellStyle(); // (1) CellStyle을 만들어서,
 		applyCellStyle(greyCellStyle, new Color(231, 234, 236));
 
 		// 헤더를 생성합니다
@@ -106,7 +106,7 @@ public class CarExcelController {
 		Row headerRow = sheet.createRow(rowIndex++); // headerRow=0
 		Cell headerCell1 = headerRow.createCell(0);
 		headerCell1.setCellValue("회사");
-		headerCell1.setCellStyle(greyCellStyle);
+		headerCell1.setCellStyle(greyCellStyle); // (2) 이미 만들어진 CellStyle을 Cell에다가 적용
 
 		// 바디에 데이터를 넣어줍니다
 		for (CarExcelDto dto : carExcelDtos) {

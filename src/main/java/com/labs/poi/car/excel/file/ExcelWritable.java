@@ -3,7 +3,7 @@ package com.labs.poi.car.excel.file;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public interface ExcelFile {
+public interface ExcelWritable {
 
 	void write(OutputStream stream) throws IOException;
 

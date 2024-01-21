@@ -1,7 +1,7 @@
 package com.labs.poi.car.excel;
 
 import com.labs.poi.car.excel.exception.ExcelExportException;
-import com.labs.poi.car.excel.file.ExcelFile;
+import com.labs.poi.car.excel.file.ExcelWritable;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -17,15 +17,15 @@ public class ExcelExporter {
 	private static final String EXCEL_CONTENT_TYPE = "application/vnd.ms-excel";
 
 	public void export(
-			ExcelFile excelFile,
+			ExcelWritable excelWritable,
 			HttpServletResponse response,
 			String fileName
 	) {
-		export(excelFile, response, fileName, ExcelExportException::new);
+		export(excelWritable, response, fileName, ExcelExportException::new);
 	}
 
 	public void export(
-			ExcelFile excelFile,
+			ExcelWritable excelWritable,
 			HttpServletResponse response,
 			String fileName,
 			Supplier<Exception> errorHandler
@@ -33,7 +33,7 @@ public class ExcelExporter {
 		try {
 			setExcelContentType(response);
 			setFileName(response, fileName);
-			excelFile.write(response.getOutputStream());
+			excelWritable.write(response.getOutputStream());
 		} catch (IOException e) {
 			log.error(e.getMessage());
 			errorHandler.get();

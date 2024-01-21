@@ -1,6 +1,8 @@
 package com.labs.poi.car.excel.file;
 
+import com.labs.poi.car.excel.ExcelRenderingLocation;
 import com.labs.poi.car.excel.exception.ExcelProcessingException;
+import com.labs.poi.car.excel.resource.CellKey;
 import com.labs.poi.car.excel.resource.ExcelRenderingResource;
 import com.labs.poi.car.excel.resource.ExcelRenderingResourceFactory;
 import com.labs.poi.car.utils.ReflectionUtils;
@@ -13,7 +15,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
-public class OneSheetExcelFile<T> implements ExcelFile {
+public class OneSheetExcelFile<T> implements ExcelWritable {
 
 	private static final int ROW_START_INDEX = 0;
 	private static final int COLUMN_START_INDEX = 0;
@@ -23,13 +25,13 @@ public class OneSheetExcelFile<T> implements ExcelFile {
 	private final ExcelRenderingResource resource;
 
 	/**
-	 * @param data  Data to render excel.
-	 * @param clazz Class type to be rendered. Only fields annotated with @ExcelColumn will be rendered.
+	 * @param dataType Class type to be rendered. Only fields annotated with @ExcelColumn will be rendered.
+	 * @param data     Data to render excel.
 	 */
-	public OneSheetExcelFile(List<T> data, Class<T> clazz) {
+	public OneSheetExcelFile(Class<T> dataType, List<T> data) {
 		this.workbook = new SXSSFWorkbook();
 		this.sheet = this.workbook.createSheet();
-		this.resource = ExcelRenderingResourceFactory.create(clazz);
+		this.resource = ExcelRenderingResourceFactory.create(dataType, this.workbook);
 		renderExcel(data);
 	}
 
@@ -57,7 +59,7 @@ public class OneSheetExcelFile<T> implements ExcelFile {
 
 		for (String dataFieldName : resource.getDataFieldNames()) {
 			Cell cell = row.createCell(columnIndex++);
-			cell.setCellStyle();
+			cell.setCellStyle(resource.getCellStyle(new CellKey(dataFieldName, ExcelRenderingLocation.HEADER)));
 			cell.setCellValue(resource.getHeaderName(dataFieldName));
 		}
 	}
