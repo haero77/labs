@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExcelExporter {
 
-	public static final String EXCEL_CONTENT_TYPE = "application/vnd.ms-excel";
+	private static final String EXCEL_CONTENT_TYPE = "application/vnd.ms-excel";
 
 	public void export(
 			ExcelFile excelFile,
