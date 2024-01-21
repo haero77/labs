@@ -1,11 +1,16 @@
 package com.labs.poi.car.excel;
 
+import com.labs.poi.car.excel.exception.ExcelExportException;
+import com.labs.poi.car.excel.file.ExcelFile;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.function.Supplier;
 import javax.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class ExcelExporter {
 
@@ -15,10 +20,24 @@ public class ExcelExporter {
 			ExcelFile excelFile,
 			HttpServletResponse response,
 			String fileName
-	) throws IOException {
-		setExcelContentType(response);
-		setFileName(response, fileName);
-		excelFile.write(response.getOutputStream());
+	) {
+		export(excelFile, response, fileName, ExcelExportException::new);
+	}
+
+	public void export(
+			ExcelFile excelFile,
+			HttpServletResponse response,
+			String fileName,
+			Supplier<Exception> errorHandler
+	) {
+		try {
+			setExcelContentType(response);
+			setFileName(response, fileName);
+			excelFile.write(response.getOutputStream());
+		} catch (IOException e) {
+			log.error(e.getMessage());
+			errorHandler.get();
+		}
 	}
 
 	private void setExcelContentType(HttpServletResponse response) {

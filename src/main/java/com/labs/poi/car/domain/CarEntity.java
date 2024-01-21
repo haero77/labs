@@ -1,4 +1,4 @@
-package com.labs.poi.car;
+package com.labs.poi.car.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +21,6 @@ public class CarEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "car_id")
 	private Long id;
-
 
 	private CarType carType;
 

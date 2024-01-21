@@ -1,4 +1,4 @@
-package com.labs.poi.car;
+package com.labs.poi.car.domain;
 
 import java.awt.Color;
 import java.io.IOException;
@@ -28,6 +28,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CarExcelController {
 
 	private final CarService carService;
+	private final CarExcelExporter carExcelExporter;
+
+	@GetMapping("/api/v1/excel-improvement/car")
+	public void download(HttpServletResponse response) throws IOException {
+		carExcelExporter.exportAllCarInfo(response);
+	}
 
 	@GetMapping("/api/v1/excel/car")
 	public void downloadCarInfo(HttpServletResponse response) throws IOException {
@@ -93,7 +99,7 @@ public class CarExcelController {
 
 		// 셀 스타일
 		CellStyle greyCellStyle = workbook.createCellStyle();
-		applyCellStyle(greyCellStyle, new java.awt.Color(231, 234, 236));
+		applyCellStyle(greyCellStyle, new Color(231, 234, 236));
 
 		// 헤더를 생성합니다
 		int rowIndex = 0;
@@ -112,7 +118,9 @@ public class CarExcelController {
 
 		response.setContentType("application/vnd.ms-excel");
 		String fileName = "파일 네임 얍얍";
-		response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20") + ".xlsx");
+		response.setHeader("Content-Disposition",
+				"attachment;filename=" + URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("+", "%20")
+						+ ".xlsx");
 
 		workbook.write(response.getOutputStream());
 		workbook.close();

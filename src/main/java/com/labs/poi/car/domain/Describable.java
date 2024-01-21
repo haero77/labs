@@ -1,4 +1,4 @@
-package com.labs.poi.car;
+package com.labs.poi.car.domain;
 
 public interface Describable {
 

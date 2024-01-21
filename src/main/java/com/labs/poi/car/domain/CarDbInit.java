@@ -1,4 +1,4 @@
-package com.labs.poi.car;
+package com.labs.poi.car.domain;
 
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class CarDbInit {
 					.carType(i % 2 == 0 ? CarType.SMALL : CarType.BIG)
 					.name("name" + i)
 					.price(i * 1000)
-					.rating(i * 10)
+					.rating(i * 10 * 0.9999)
 					.build();
 			carRepository.save(newCarEntity);
 		}

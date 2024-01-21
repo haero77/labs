@@ -1,4 +1,4 @@
-package com.labs.poi.car;
+package com.labs.poi.car.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

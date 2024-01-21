@@ -1,4 +1,4 @@
-package com.labs.poi.car;
+package com.labs.poi.car.domain;
 
 import java.util.List;
 import java.util.stream.Collectors;
