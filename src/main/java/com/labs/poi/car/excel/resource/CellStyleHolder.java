@@ -19,7 +19,7 @@ public class CellStyleHolder {
 	public static CellStyleHolder of(List<Field> fields, Workbook workbook) {
 		Map<CellKey, CellStyle> cellStyles = new HashMap<>();
 
-		for (Field field : fields) {
+		for (Field field : ExcelColumnFieldFilter.filter(fields)) {
 			cellStyles.put(
 					new CellKey(field.getName(), ExcelRenderingLocation.HEADER),
 					CellStyleFactory.createHeaderStyle(field, workbook)

@@ -24,7 +24,7 @@ public class ExcelRenderingResourceFactory {
 	}
 
 	private static Map<String, String> generateHeaderNames(List<Field> fields) {
-		return filterExcelColumnExists(fields)
+		return ExcelColumnFieldFilter.filter(fields)
 				.stream()
 				.collect(Collectors.toMap(
 						Field::getName,
@@ -33,15 +33,9 @@ public class ExcelRenderingResourceFactory {
 	}
 
 	private static List<String> extractFieldNames(List<Field> fields) {
-		return filterExcelColumnExists(fields)
+		return ExcelColumnFieldFilter.filter(fields)
 				.stream()
 				.map(Field::getName)
-				.collect(Collectors.toList());
-	}
-
-	private static List<Field> filterExcelColumnExists(List<Field> fields) {
-		return fields.stream()
-				.filter(field -> field.isAnnotationPresent(ExcelColumn.class))
 				.collect(Collectors.toList());
 	}
 
