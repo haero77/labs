@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class CarExcelDto {
 
-	@ExcelColumn(headerName = "회사", headerStyle = @ExcelCellStyle)
+	@ExcelColumn(headerName = "회사", headerStyle = @ExcelCellStyle(foreGroundColor = RgbColor.PASTEL_RED))
 	private final String company; // 회사
 
 	@ExcelColumn(headerName = "차종")

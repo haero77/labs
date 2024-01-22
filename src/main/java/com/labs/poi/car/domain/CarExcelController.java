@@ -18,7 +18,6 @@ import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -99,8 +98,9 @@ public class CarExcelController {
 
 		// 셀 스타일
 		CellStyle greyCellStyle = workbook.createCellStyle(); // (1) CellStyle을 만들어서,
+//		greyCellStyle.setFillForegroundColor(new XSSFColor(new Color(231, 234, 236), new DefaultIndexedColorMap()));
 		applyCellStyle(greyCellStyle, new Color(231, 234, 236));
-
+//
 		// 헤더를 생성합니다
 		int rowIndex = 0;
 		Row headerRow = sheet.createRow(rowIndex++); // headerRow=0
@@ -127,8 +127,7 @@ public class CarExcelController {
 	}
 
 	private void applyCellStyle(CellStyle cellStyle, Color color) {
-		XSSFCellStyle xssfCellStyle = (XSSFCellStyle) cellStyle;
-		xssfCellStyle.setFillForegroundColor(new XSSFColor(color, new DefaultIndexedColorMap()));
+		cellStyle.setFillForegroundColor(new XSSFColor(color, new DefaultIndexedColorMap()));
 		cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		cellStyle.setAlignment(HorizontalAlignment.CENTER);
 		cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
