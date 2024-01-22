@@ -7,17 +7,17 @@ import org.apache.poi.ss.usermodel.CellStyle;
 public class ExcelRenderingResource {
 
 	private final List<String> dataFieldNames;
-	private final Map<CellKey, CellStyle> cellStyles;
 	private final Map<String, String> headerNames; // <dataFieldName, headerName>
+	private final CellStyleHolder cellStyleHolder;
 
 	public ExcelRenderingResource(
-			Map<String, String> headerNames,
 			List<String> dataFieldNames,
-			Map<CellKey, CellStyle> cellStyles
+			Map<String, String> headerNames,
+			CellStyleHolder cellStyleHolder
 	) {
 		this.dataFieldNames = dataFieldNames;
 		this.headerNames = headerNames;
-		this.cellStyles = cellStyles;
+		this.cellStyleHolder = cellStyleHolder;
 	}
 
 	public String getHeaderName(String fieldName) {
@@ -29,7 +29,7 @@ public class ExcelRenderingResource {
 	}
 
 	public CellStyle getCellStyle(CellKey cellKey) {
-		return this.cellStyles.get(cellKey);
+		return this.cellStyleHolder.getStyle(cellKey);
 	}
 
 }

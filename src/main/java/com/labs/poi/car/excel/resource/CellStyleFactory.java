@@ -1,4 +1,4 @@
-package com.labs.poi.car.excel.style;
+package com.labs.poi.car.excel.resource;
 
 import com.labs.poi.car.excel.ExcelCellStyle;
 import com.labs.poi.car.excel.ExcelColumn;
