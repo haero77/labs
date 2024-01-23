@@ -1,5 +1,6 @@
 package com.labs.poi.car.excel;
 
+import com.labs.poi.car.excel.style.align.ExcelTextAlign;
 import com.labs.poi.car.excel.style.color.RgbColor;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,8 +14,8 @@ public @interface ExcelColumn {
 	String headerName() default "";
 
 	// header 의 color & align 가능 해야함
-	ExcelCellStyle headerStyle() default @ExcelCellStyle(foreGroundColor = RgbColor.WHITE);
+	ExcelCellStyle headerStyle() default @ExcelCellStyle(foreGroundColor = RgbColor.NONE, align = ExcelTextAlign.CENTER);
 
-	ExcelCellStyle contentStyle() default @ExcelCellStyle(foreGroundColor = RgbColor.WHITE);
+	ExcelCellStyle contentStyle() default @ExcelCellStyle(foreGroundColor = RgbColor.NONE, align = ExcelTextAlign.RIGHT);
 
 }

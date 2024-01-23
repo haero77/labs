@@ -23,7 +23,10 @@ public class CarExcelDto {
 	@ExcelColumn(headerName = "가격")
 	private final int price; // 가격
 
-	@ExcelColumn(headerName = "평점", headerStyle = @ExcelCellStyle(foreGroundColor = RgbColor.GREY, align = ExcelTextAlign.CENTER))
+	@ExcelColumn(headerName = "평점",
+			headerStyle = @ExcelCellStyle(foreGroundColor = RgbColor.GREY, align = ExcelTextAlign.CENTER),
+			contentStyle = @ExcelCellStyle(foreGroundColor = RgbColor.NONE, align = ExcelTextAlign.RIGHT)
+	)
 	private final double rating; // 평점
 
 	@Builder
