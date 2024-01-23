@@ -1,7 +1,6 @@
 package com.labs.poi.car.domain;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +11,8 @@ public class CarService {
 	private final CarRepository carRepository;
 
 	public List<CarExcelDto> fetchAllAsExcelDto() {
-		return carRepository.findAll()
-				.stream()
-				.map(car -> CarExcelDto.from(car))
-				.collect(Collectors.toList());
+		List<CarEntity> all = carRepository.findAll();
+		return CarExcelDto.from(all);
 	}
 
 //	public List<CarExcelDto> fetchAll() {

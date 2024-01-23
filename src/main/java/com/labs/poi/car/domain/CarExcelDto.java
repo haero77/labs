@@ -5,11 +5,16 @@ import com.labs.poi.car.excel.ExcelCellStyle;
 import com.labs.poi.car.excel.ExcelColumn;
 import com.labs.poi.car.excel.style.align.ExcelTextAlign;
 import com.labs.poi.car.excel.style.color.RgbColor;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 public class CarExcelDto {
+
+	@ExcelColumn(headerName = "번호")
+	private int orderNo;
 
 	@ExcelColumn(headerName = "회사", headerStyle = @ExcelCellStyle(foreGroundColor = RgbColor.PASTEL_RED))
 	private final String company; // 회사
@@ -30,7 +35,8 @@ public class CarExcelDto {
 	private final double rating; // 평점
 
 	@Builder
-	private CarExcelDto(String company, String name, CarType type, int price, double rating) {
+	public CarExcelDto(int orderNo, String company, String name, CarType type, int price, double rating) {
+		this.orderNo = orderNo;
 		this.company = company;
 		this.name = name;
 		this.type = type;
@@ -46,6 +52,12 @@ public class CarExcelDto {
 				.price(car.getPrice())
 				.rating(car.getRating())
 				.build();
+	}
+
+	public static List<CarExcelDto> from(List<CarEntity> carEntities) {
+		return carEntities.stream()
+				.map(carEntity -> from(carEntity))
+				.collect(Collectors.toList());
 	}
 
 }

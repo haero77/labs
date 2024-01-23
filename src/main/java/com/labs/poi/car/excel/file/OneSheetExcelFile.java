@@ -17,8 +17,8 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class OneSheetExcelFile<T> implements ExcelWritable {
 
-	private static final int ROW_START_INDEX = 0;
-	private static final int COLUMN_START_INDEX = 0;
+	private static int rowStartIndex = 0;
+	private static int columnStartIndex = 0;
 
 	private final SXSSFWorkbook workbook;
 	private final SXSSFSheet sheet;
@@ -36,6 +36,45 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 		renderExcel(data);
 	}
 
+	public OneSheetExcelFile(SXSSFWorkbook workbook, SXSSFSheet sheet, ExcelRenderingResource resource, List<T> data) {
+		this.workbook = workbook;
+		this.sheet = sheet;
+		this.resource = resource;
+		renderExcel(data);
+	}
+
+	public static OneSheetExcelFile<?> of(Class<?> dataType, List<?> data) {
+		SXSSFWorkbook workbook = new SXSSFWorkbook();
+		SXSSFSheet sheet = workbook.createSheet();
+		sheet.trackAllColumnsForAutoSizing();
+		ExcelRenderingResource resource = ExcelRenderingResourceFactory.create(dataType, workbook);
+		return new OneSheetExcelFile<>(workbook, sheet, resource, data);
+	}
+
+	public static OneSheetExcelFile<?> withAdditionalOrderingColumn(Class<?> dataType, List<?> data) {
+		SXSSFWorkbook workbook = new SXSSFWorkbook();
+		SXSSFSheet sheet = workbook.createSheet();
+		sheet.trackAllColumnsForAutoSizing();
+
+		addOrderingAtFirstColumn(data, sheet);
+
+		ExcelRenderingResource resource = ExcelRenderingResourceFactory.create(dataType, workbook);
+		return new OneSheetExcelFile<>(workbook, sheet, resource, data);
+	}
+
+	private static void addOrderingAtFirstColumn(List<?> data, SXSSFSheet sheet) {
+		Row firstRow = sheet.createRow(0);
+		Cell firstCell = firstRow.createCell(0);
+		firstCell.setCellValue("번혼");
+
+		for (int i = 1; i <= data.size(); i++) {
+			Row row = sheet.createRow(i);
+			Cell cell = row.createCell(0);
+			cell.setCellValue(i);
+		}
+		columnStartIndex++;
+	}
+
 	@Override
 	public void write(OutputStream stream) throws IOException {
 		workbook.write(stream);
@@ -45,7 +84,6 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 	}
 
 	private void renderExcel(List<T> data) {
-
 		renderHeader();
 
 		if (data.isEmpty()) {
@@ -61,8 +99,8 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 	}
 
 	private void renderHeader() {
-		Row row = sheet.createRow(ROW_START_INDEX);
-		int columnIndex = COLUMN_START_INDEX;
+		Row row = sheet.createRow(rowStartIndex);
+		int columnIndex = columnStartIndex;
 
 		for (String dataFieldName : resource.getDataFieldNames()) {
 			Cell cell = row.createCell(columnIndex++);
@@ -72,11 +110,11 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 	}
 
 	private void renderContent(List<T> data) {
-		int rowIndex = ROW_START_INDEX + 1;
+		int rowIndex = rowStartIndex + 1;
 
 		for (Object oneRowData : data) {
 			Row row = sheet.createRow(rowIndex++);
-			int columnIndex = COLUMN_START_INDEX;
+			int columnIndex = columnStartIndex;
 
 			for (String fieldName : resource.getDataFieldNames()) {
 				Cell cell = row.createCell(columnIndex++);

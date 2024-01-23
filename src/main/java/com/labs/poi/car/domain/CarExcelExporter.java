@@ -19,7 +19,7 @@ public class CarExcelExporter {
 
 	public void exportAllCarInfo(HttpServletResponse response) throws IOException {
 		List<CarExcelDto> carExcelDtos = carService.fetchAllAsExcelDto();
-		ExcelWritable carExcelWritable = new OneSheetExcelFile<>(CarExcelDto.class, carExcelDtos);
+		ExcelWritable carExcelWritable = OneSheetExcelFile.withAdditionalOrderingColumn(CarExcelDto.class, carExcelDtos);
 		excelExporter.export(carExcelWritable, response, "자동차 엑셀", CarExcelExportException::new);
 	}
 
