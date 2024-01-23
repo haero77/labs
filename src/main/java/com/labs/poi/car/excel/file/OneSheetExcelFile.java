@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class OneSheetExcelFile<T> implements ExcelWritable {
@@ -21,7 +21,7 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 	private static final int COLUMN_START_INDEX = 0;
 
 	private final SXSSFWorkbook workbook;
-	private final Sheet sheet;
+	private final SXSSFSheet sheet;
 	private final ExcelRenderingResource resource;
 
 	/**
@@ -31,6 +31,7 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 	public OneSheetExcelFile(Class<T> dataType, List<T> data) {
 		this.workbook = new SXSSFWorkbook();
 		this.sheet = this.workbook.createSheet();
+		this.sheet.trackAllColumnsForAutoSizing();
 		this.resource = ExcelRenderingResourceFactory.create(dataType, this.workbook);
 		renderExcel(data);
 	}
@@ -44,6 +45,7 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 	}
 
 	private void renderExcel(List<T> data) {
+
 		renderHeader();
 
 		if (data.isEmpty()) {
@@ -51,6 +53,11 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 		}
 
 		renderContent(data);
+
+		// auto sizing column
+		for (int columnIndex = 0; columnIndex < data.size(); columnIndex++) {
+			sheet.autoSizeColumn(columnIndex);
+		}
 	}
 
 	private void renderHeader() {
