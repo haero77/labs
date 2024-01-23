@@ -78,6 +78,7 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 					Field field = ReflectionUtils.getField(oneRowData, fieldName);
 					field.setAccessible(true);
 					Object fieldValue = field.get(oneRowData);
+					cell.setCellStyle(resource.getCellStyle(new CellKey(fieldName, ExcelRenderingLocation.CONTENT)));
 					renderCellValue(cell, fieldValue);
 				} catch (Exception e) {
 					throw new ExcelProcessingException(e.getMessage(), e);

@@ -36,6 +36,9 @@ public class CellStyleFactory {
 	}
 
 	private static void fillForegroundColor(CellStyle style, RgbColor rgbColor) {
+		if (rgbColor.isNone()) {
+			return;
+		}
 		style.setFillForegroundColor(new XSSFColor(rgbColor.getColor(), new DefaultIndexedColorMap()));
 		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 	}

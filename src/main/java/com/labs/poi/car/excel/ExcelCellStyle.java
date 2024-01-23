@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ExcelCellStyle {
 
-	RgbColor foreGroundColor() default RgbColor.WHITE;
+	RgbColor foreGroundColor() default RgbColor.NONE;
 
-	ExcelTextAlign align() default ExcelTextAlign.CENTER; // content 는 right 로 만들기 위해 별도 애노테이션 필요.
+	ExcelTextAlign align() default ExcelTextAlign.RIGHT; // content 는 right 로 만들기 위해 별도 애노테이션 필요.
 
 }
