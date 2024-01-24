@@ -1,6 +1,6 @@
 package com.labs.poi.car.excel.resource;
 
-import com.labs.poi.car.excel.ExcelRenderingLocation;
+import com.labs.poi.car.excel.core.ExcelRenderingLocation;
 import java.util.Objects;
 
 public class CellKey {

@@ -1,6 +1,6 @@
 package com.labs.poi.car.excel.resource;
 
-import com.labs.poi.car.excel.ExcelColumn;
+import com.labs.poi.car.excel.core.ExcelColumn;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;

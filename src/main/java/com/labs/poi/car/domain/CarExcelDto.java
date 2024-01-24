@@ -1,8 +1,8 @@
 package com.labs.poi.car.domain;
 
 
-import com.labs.poi.car.excel.ExcelCellStyle;
-import com.labs.poi.car.excel.ExcelColumn;
+import com.labs.poi.car.excel.core.ExcelCellStyle;
+import com.labs.poi.car.excel.core.ExcelColumn;
 import com.labs.poi.car.excel.style.align.ExcelTextAlign;
 import com.labs.poi.car.excel.style.color.RgbColor;
 import java.util.List;
