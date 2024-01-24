@@ -22,25 +22,17 @@ public class OneSheetExcelFile<T> implements ExcelWritable {
 	private final SXSSFSheet sheet;
 	private final ExcelRenderingResource resource;
 
-	/**
-	 * @param dataType Class type to be rendered. Only fields annotated with @ExcelColumn will be rendered.
-	 * @param data     Data to render excel.
-	 */
-	public OneSheetExcelFile(Class<T> dataType, List<T> data) {
-		this.workbook = new SXSSFWorkbook();
-		this.sheet = this.workbook.createSheet();
-		this.sheet.trackAllColumnsForAutoSizing();
-		this.resource = ExcelRenderingResourceFactory.create(dataType, this.workbook);
-		renderExcel(data);
-	}
-
-	public OneSheetExcelFile(SXSSFWorkbook workbook, SXSSFSheet sheet, ExcelRenderingResource resource, List<T> data) {
+	private OneSheetExcelFile(SXSSFWorkbook workbook, SXSSFSheet sheet, ExcelRenderingResource resource, List<T> data) {
 		this.workbook = workbook;
 		this.sheet = sheet;
 		this.resource = resource;
 		renderExcel(data);
 	}
 
+	/**
+	 * @param dataType Class type to be rendered. Only fields annotated with @ExcelColumn will be rendered.
+	 * @param data     Data to render excel.
+	 */
 	public static OneSheetExcelFile<?> of(Class<?> dataType, List<?> data) {
 		SXSSFWorkbook workbook = new SXSSFWorkbook();
 		SXSSFSheet sheet = workbook.createSheet();
